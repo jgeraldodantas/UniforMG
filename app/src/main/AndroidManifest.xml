@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.uniformg.uniformg" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_logo"
+        android:label="@string/app_name"
+        android:screenOrientation="userPortrait"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="controle.transicao.Principal"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="controle.transicao.Configuracoes"
+            android:label="@string/title_activity_configuracoes"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.usuario.AlterarSenha"
+            android:label="@string/title_activity_alterar_senha"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.usuario.TrocarUsuario"
+            android:label="@string/title_activity_trocar_usuario"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.usuario.InformacoesUsuario"
+            android:label="@string/title_activity_informacoes_usuario"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.usuario.CadastroUsuario"
+            android:label="@string/title_activity_cadastro_usuario"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.material.PesquisaAcervoGnuteca"
+            android:label="@string/title_activity_pesquisa_acervo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.usuario.Autenticacao"
+            android:label="@string/title_activity_autenticacao"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.material.PesquisaIndexSIAB"
+            android:label="@string/title_activity_pesquisa_index"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="controle.mensagem.ListaMensagem"
+            android:theme="@style/ImagemFundo"
+            android:label="@string/title_activity_lista_mensagem"
+            android:screenOrientation="portrait" >
+        </activity>
+    </application>
+
+</manifest>

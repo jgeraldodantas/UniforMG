@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">UniforMG</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_configuracoes">Configurações</string>
+    <string name="title_activity_alterar_senha">Alterar senha</string>
+    <string name="title_activity_trocar_usuario">Trocar usuário</string>
+    <string name="title_activity_informacoes_usuario">Informações do usuário</string>
+    <string name="title_activity_cadastro_usuario">Cadastro de usuario</string>
+    <string name="title_activity_pesquisa_acervo">Pesquisar acervo</string>
+    <string name="title_activity_autenticacao">Autenticação</string>
+    <string name="title_activity_pesquisa_index">Pesquisa Indexação</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_lista_mensagem">Mensagens</string>
+</resources>

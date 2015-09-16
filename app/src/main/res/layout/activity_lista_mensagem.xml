@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fundo2"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:weightSum="1">
+<!--
+    <TextView
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvHorario"
+        android:text="Horario" />
+
+    <TextView
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvData"
+        android:text="Validade" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvVisivel"
+        android:text="Visivel" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTipo"
+        android:text="Tipo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMensagem"
+        android:text="Mensagem" />
+-->
+    <View
+        android:layout_height="1.2dip"
+        android:layout_width="fill_parent"
+        android:background="#000000" />
+
+</LinearLayout>
