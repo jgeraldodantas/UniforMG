@@ -22,7 +22,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 
-import modelo.MySQLiteHelper;
 import modelo.WebService;
 
 public class AlterarSenha extends AppCompatActivity {
@@ -98,8 +97,8 @@ public class AlterarSenha extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
 
             Log.i("logar", "entrou no evento");
-            String urlPost = web.URL+web.AUTENTICACAO;
-            String urlGet  = web.URL+web.AUTENTICACAO+"?matricula=" + matricula + "&senha=" + etSenhaAtual.getText().toString();
+            String urlPost = web.URL +web.AUTENTICACAO;
+            String urlGet  = web.URL +web.AUTENTICACAO+"?matricula=" + matricula + "&senha=" + etSenhaAtual.getText().toString();
             ArrayList<NameValuePair> parametrosPost = new ArrayList<NameValuePair>();
             parametrosPost.add(new BasicNameValuePair("matricula", matricula.toString()));
             parametrosPost.add(new BasicNameValuePair("senha", etSenhaAtual.getText().toString()));

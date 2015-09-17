@@ -24,7 +24,6 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 
-import modelo.MySQLiteHelper;
 import modelo.WebService;
 
 public class Autenticacao extends AppCompatActivity {
@@ -73,8 +72,8 @@ public class Autenticacao extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
 
             Log.i("logar", "entrou no evento");
-            String urlPost = web.URL+web.AUTENTICACAO;
-            String urlGet  = web.URL+web.AUTENTICACAO+"?matricula=" + Integer.parseInt(matricula) + "&senha=" + senha;
+            String urlPost = web.URL +web.AUTENTICACAO;
+            String urlGet  = web.URL +web.AUTENTICACAO+"?matricula=" + Integer.parseInt(matricula) + "&senha=" + senha;
             ArrayList<NameValuePair> parametrosPost = new ArrayList<NameValuePair>();
             parametrosPost.add(new BasicNameValuePair("matricula", matricula));
             parametrosPost.add(new BasicNameValuePair("senha", senha));
