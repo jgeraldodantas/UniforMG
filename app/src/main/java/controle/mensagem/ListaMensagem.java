@@ -100,7 +100,7 @@ public class ListaMensagem extends ListActivity {
             String[] mensagens;
 
             for (int i = 0; i <= listaMSG.size() - 1; i++) {
-                texto += listaMSG.get(i).getMensagem() + "#";
+                texto += listaMSG.get(i).getCodigo() +"# "+ listaMSG.get(i).getMensagem() + "#";
             }
 
             mensagens = texto.split("#");
@@ -109,10 +109,11 @@ public class ListaMensagem extends ListActivity {
         }
     }
 
-    public void exibirMensagem(String mensagem){
+    public void exibirMensagem(final String mensagem){
 
         View checkBoxView = View.inflate(this, R.layout.checkbox, null);
-        CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+        final CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -130,12 +131,23 @@ public class ListaMensagem extends ListActivity {
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                    //   Uri uri = Uri.parse("market://details?id=MY_APP_PACKAGE");
-                    //    Intent intent = new Intent (Intent.ACTION_VIEW, uri);
-                    //    startActivity(intent);
+
+                        if (checkBox.isChecked()) {
+
+                            String[] codigo;
+                            String texto = mensagem;
+                            codigo = texto.toString().split("#");
+                            Log.i("Texto ", "" + texto);
+                            Log.i("Tamanho Codigo ", "" + codigo.length);
+                            Log.i("Codigo 0 ", "" + codigo[0].toString());
+                            Toast.makeText(ListaMensagem.this, "Código: " + codigo[0].toString(), Toast.LENGTH_LONG).show();
+                            //    Toast.makeText(ListaMensagem.this, texto, Toast.LENGTH_LONG).show();
+                        }
                     }
+
+
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton("", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
