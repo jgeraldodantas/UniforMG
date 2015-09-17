@@ -1,10 +1,16 @@
 package controle.mensagem;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,8 +25,11 @@ import android.widget.Toast;
 
 import com.example.uniformg.uniformg.R;
 
+import org.apache.http.message.BasicNameValuePair;
+
 import java.util.ArrayList;
 
+import modelo.MySQLiteHelper;
 import modelo.SQLiteMensagem;
 import modelo.WebService;
 import objeto.Mensagem;
@@ -52,7 +61,7 @@ public class ListaMensagem extends ListActivity {
         String [] texto;
 
         Log.i("logar", "entrou no evento");
-        String url = web.URL +web.IMPORTA_MSG_SIAB;
+        String url = web.URL+web.IMPORTA_MSG_SIAB;
         String respostaRetornada = null;
         Log.i("logar", "vai entrar no try");
         try {
@@ -71,7 +80,9 @@ public class ListaMensagem extends ListActivity {
                 msg.setVisivel(texto[3]);
                 msg.setTipo(texto[4]);
                 msg.setHorario(texto[5]);
+
                 banco.addMensagem(msg);
+            //    listaMSG.add(msg);
             }
         }
         catch(Exception erro){ Log.i("erro", "erro = "+erro); }
@@ -89,7 +100,7 @@ public class ListaMensagem extends ListActivity {
             String[] mensagens;
 
             for (int i = 0; i <= listaMSG.size() - 1; i++) {
-                texto += listaMSG.get(1).getCodigo() +". "+ listaMSG.get(i).getMensagem() + "#";
+                texto += listaMSG.get(i).getMensagem() + "#";
             }
 
             mensagens = texto.split("#");
@@ -98,12 +109,10 @@ public class ListaMensagem extends ListActivity {
         }
     }
 
-    public void exibirMensagem(final String mensagem){
+    public void exibirMensagem(String mensagem){
 
-        Context context = null;
-        final SQLiteMensagem banco = new SQLiteMensagem(context);
         View checkBoxView = View.inflate(this, R.layout.checkbox, null);
-        final CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+        CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -121,19 +130,12 @@ public class ListaMensagem extends ListActivity {
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if (checkBox.isChecked()) {
-
-                            Toast.makeText( ListaMensagem.this, "Selecionado.\n"+mensagem, Toast.LENGTH_LONG).show();
-                            String[] codigo;
-                            Mensagem msg = new Mensagem();
-
-                            codigo = mensagem.split(".");
-                            msg = banco.getMensagem(Integer.parseInt(codigo[0].toString()));
-                            banco.deleteMensagem(msg);
-                        }
+                    //   Uri uri = Uri.parse("market://details?id=MY_APP_PACKAGE");
+                    //    Intent intent = new Intent (Intent.ACTION_VIEW, uri);
+                    //    startActivity(intent);
                     }
                 })
-                .setNegativeButton("", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
