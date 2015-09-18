@@ -28,6 +28,7 @@ import com.example.uniformg.uniformg.R;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import modelo.MySQLiteHelper;
 import modelo.SQLiteMensagem;
@@ -41,6 +42,7 @@ public class ListaMensagem extends ListActivity {
   //  SQLiteMensagem banco = new SQLiteMensagem(this);
     WebService web;
     int posicao=0;
+    String texto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +102,7 @@ public class ListaMensagem extends ListActivity {
             String[] mensagens;
 
             for (int i = 0; i <= listaMSG.size() - 1; i++) {
-                texto += listaMSG.get(i).getMensagem() + "#";
+                texto += listaMSG.get(i).getCodigo()+" "+listaMSG.get(i).getMensagem() + "#";
             }
 
             mensagens = texto.split("#");
@@ -109,10 +111,10 @@ public class ListaMensagem extends ListActivity {
         }
     }
 
-    public void exibirMensagem(String mensagem){
+    public void exibirMensagem(final String mensagem){
 
         View checkBoxView = View.inflate(this, R.layout.checkbox, null);
-        CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+        final CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -121,6 +123,7 @@ public class ListaMensagem extends ListActivity {
                 // Save to shared preferences
             }
         });
+
         checkBox.setText("Não exibir novamente.");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -130,12 +133,19 @@ public class ListaMensagem extends ListActivity {
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                    //   Uri uri = Uri.parse("market://details?id=MY_APP_PACKAGE");
-                    //    Intent intent = new Intent (Intent.ACTION_VIEW, uri);
-                    //    startActivity(intent);
+
+                        if (checkBox.isChecked()) {
+                            String codigo;
+                            StringTokenizer vetor = new StringTokenizer(mensagem);
+                        //    codigo = ; //mensagem.(".");
+                            codigo = vetor.nextToken();
+                            Log.i("mensagem", mensagem);
+                            Log.i("codigo", vetor.nextToken());
+                            Toast.makeText(ListaMensagem.this, "Código: "+codigo, Toast.LENGTH_LONG).show();
+                        }
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton("", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

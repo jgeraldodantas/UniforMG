@@ -25,7 +25,7 @@ public class WebService {
 
     private static HttpClient httpClient;
     public static final int HTTP_TIMEOUT = 30 * 1000;
-    public  static final String URL = "http://192.168.2.105/siab/controle/webservice/";
+    public  static final String URL = "http://172.16.1.190/siab/controle/webservice/";
     public  static final String ALTERA_SENHA = "usuario/alteraSenha.php";
     public  static final String AUTENTICACAO = "usuario/autenticacao.php";
     public  static final String IMPORTA_LIVRO_SIAB = "material/importaLivrosSIAB.php";
