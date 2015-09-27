@@ -1,14 +1,18 @@
 package controle.transicao;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,6 +27,7 @@ import objeto.Mensagem;
 import objeto.Usuario;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import controle.usuario.Autenticacao;
 import controle.usuario.CadastroUsuario;
@@ -51,10 +56,18 @@ public class Principal extends AppCompatActivity {
             ibtPesqAcervoGnuteca = (ImageButton) findViewById(R.id.ibtPesquisaAcervoGnuteca);
             ibtPesqIndexSIAB = (ImageButton) findViewById(R.id.ibtPesquisaIndexSIAB);
             ibtMensagens = (ImageButton) findViewById(R.id.ibtMensagens);
+            ListaMensagem msg = new ListaMensagem();
 
-            if (bancoMSG.getAllMensagens().isEmpty()){
-                ListaMensagem msg = new ListaMensagem();
-                msg.buscaMensagens(this);
+            if (bancoMSG.getAllMensagens().isEmpty()){ msg.buscaMensagensWebService(this); }
+
+            ArrayList<Mensagem> listaMSG = bancoMSG.getAllMensagens();
+            if(!listaMSG.isEmpty()){
+                String texto = new String();
+                for (int i=0; i<listaMSG.size();i++){
+                    texto = new String();
+                    texto = listaMSG.get(i).getCodigo().toString() +" "+ listaMSG.get(i).getMensagem();
+                    exibirMensagem(texto);
+                }
             }
 
         /*
@@ -102,6 +115,26 @@ public class Principal extends AppCompatActivity {
             View v = new View(this);
             telaAutenticacao(v);
         }
+
+    }
+
+
+    public void exibirMensagem(final String mensagem){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção!");
+        builder.setMessage(mensagem)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setNegativeButton("", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).show();
 
     }
 

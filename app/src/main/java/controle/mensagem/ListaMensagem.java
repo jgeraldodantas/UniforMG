@@ -39,10 +39,10 @@ public class ListaMensagem extends ListActivity {
 
   //  Activity telaMensagens;
     TextView tvHorario,tvMensagem,tvData,tvVisivel,tvTipo;
-  //  SQLiteMensagem banco = new SQLiteMensagem(this);
+    SQLiteMensagem banco = new SQLiteMensagem(this);
     WebService web;
-    int posicao=0;
     String texto;
+    ArrayAdapter<String> listaMensagens;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class ListaMensagem extends ListActivity {
     }
 
 //    public ArrayList<Mensagem> buscaMensagens(){
-    public void buscaMensagens(Context context){
+    public void buscaMensagensWebService(Context context){
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -84,7 +84,6 @@ public class ListaMensagem extends ListActivity {
                 msg.setHorario(texto[5]);
 
                 banco.addMensagem(msg);
-            //    listaMSG.add(msg);
             }
         }
         catch(Exception erro){ Log.i("erro", "erro = "+erro); }
@@ -106,8 +105,8 @@ public class ListaMensagem extends ListActivity {
             }
 
             mensagens = texto.split("#");
-            ArrayAdapter<String> listaMensagens = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, mensagens);
-            setListAdapter(listaMensagens);
+            listaMensagens = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, mensagens);
+            setListAdapter(this.listaMensagens);
         }
     }
 
@@ -115,6 +114,7 @@ public class ListaMensagem extends ListActivity {
 
         View checkBoxView = View.inflate(this, R.layout.checkbox, null);
         final CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
+        checkBox.setText("Não exibir novamente.");
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -124,7 +124,6 @@ public class ListaMensagem extends ListActivity {
             }
         });
 
-        checkBox.setText("Não exibir novamente.");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Atenção!");
@@ -135,13 +134,13 @@ public class ListaMensagem extends ListActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         if (checkBox.isChecked()) {
-                            String codigo;
+
                             StringTokenizer vetor = new StringTokenizer(mensagem);
-                        //    codigo = ; //mensagem.(".");
-                            codigo = vetor.nextToken();
-                            Log.i("mensagem", mensagem);
-                            Log.i("codigo", vetor.nextToken());
-                            Toast.makeText(ListaMensagem.this, "Código: "+codigo, Toast.LENGTH_LONG).show();
+                            int codigo = Integer.parseInt(vetor.nextToken());
+                            Mensagem msg = banco.getMensagem(codigo);
+                            banco.deleteMensagem(msg);
+                            listarMensagens(ListaMensagem.this);
+
                         }
                     }
                 })
@@ -150,6 +149,7 @@ public class ListaMensagem extends ListActivity {
                         dialog.cancel();
                     }
                 }).show();
+
     }
 
     protected void onListItemClick(ListView l, View v, int position, long id) {
