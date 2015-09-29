@@ -10,6 +10,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "scab";
 
+	private static final String CREATE_MATERIAL_TABLE = "CREATE TABLE material ( " +
+			"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			"ano TEXT, "+
+			"classificacao TEXT, " +
+			"editora TEXT, " +
+			"local TEXT,"+
+			"pagina TEXT, "+
+			"referencia TEXT, " +
+			"unitermo TEXT, " +
+			"volume TEXT, " +
+			"url TEXT)";
+
 	private static final String CREATE_MENSAGEM_TABLE = "CREATE TABLE mensagem ( " +
 			"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			"mensagem TEXT, " +
@@ -26,6 +38,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			"curso TEXT, "+
 			"senha TEXT )";
 
+
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);	
 	}
@@ -33,6 +46,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_USUARIO_TABLE);
+		db.execSQL(CREATE_MATERIAL_TABLE);
 		db.execSQL(CREATE_MENSAGEM_TABLE);
 	}
 
@@ -40,6 +54,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older user table if existed
         db.execSQL("DROP TABLE IF EXISTS usuario");
+		db.execSQL("DROP TABLE IF EXISTS material");
 		db.execSQL("DROP TABLE IF EXISTS mensagem");
         
         // create fresh user table
