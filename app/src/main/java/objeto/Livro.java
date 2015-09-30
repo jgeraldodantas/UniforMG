@@ -8,10 +8,9 @@ public class Livro extends Material{
     private String autor;
     private String cutter;
     private String cidade;
-    private String editora;
     private String quantidade;
     private String numeroTombo;
-    private String codigoLivro;
+    private int codigoLivro;
 
     public String getAutor() {
         return autor;
@@ -29,23 +28,9 @@ public class Livro extends Material{
         this.cutter = cutter;
     }
 
-    public String getCidade() {
-        return cidade;
-    }
+    public String getCidade() { return cidade; }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    @Override
-    public String getEditora() {
-        return editora;
-    }
-
-    @Override
-    public void setEditora(String editora) {
-        this.editora = editora;
-    }
+    public void setCidade(String cidade) { this.cidade = cidade; }
 
     public String getQuantidade() {
         return quantidade;
@@ -63,13 +48,11 @@ public class Livro extends Material{
         this.numeroTombo = numeroTombo;
     }
 
-    @Override
-    public String getCodigoLivro() {
+    public int getCodigoLivro() {
         return codigoLivro;
     }
 
-    @Override
-    public void setCodigoLivro(String codigoLivro) {
+    public void setCodigoLivro(int codigoLivro) {
         this.codigoLivro = codigoLivro;
     }
 }

@@ -26,7 +26,7 @@ public class SQLiteMaterial {
     private static final String KEY_PAGINA = "pagina";
     private static final String KEY_REFERENCIA = "referencia";
     private static final String KEY_VOLUME = "volume";
-    private static final String KEY_UNITERMO = "UNITERMO";
+    private static final String KEY_UNITERMO = "unitermo";
     private static final String KEY_URL = "url";
     private static final String KEY_CODIGO_MATERIAL = "codmaterial";
     private static final String[] COLUMNS = {KEY_ID, KEY_ANO, KEY_CLASSIFICACAO, KEY_EDITORA, KEY_LOCAL, KEY_PAGINA, KEY_REFERENCIA, KEY_VOLUME, KEY_UNITERMO, KEY_URL, KEY_CODIGO_MATERIAL};
@@ -54,7 +54,7 @@ public class SQLiteMaterial {
         ContentValues values = new ContentValues();
 
 
-        values.put(KEY_ID, material.getCodigoLivro());
+        values.put(KEY_ID, material.getCodigoMaterial());
         values.put(KEY_ANO, material.getAno());
         values.put(KEY_CLASSIFICACAO, material.getClassificacao());
         values.put(KEY_EDITORA, material.getEditora());
@@ -64,22 +64,7 @@ public class SQLiteMaterial {
         values.put(KEY_UNITERMO, material.getUnitermo());
         values.put(KEY_VOLUME, material.getVolume());
         values.put(KEY_URL, material.getUrl());
-
-        /**
-         private static final String KEY_ANO = "ano";
-         private static final String KEY_CLASSIFICACAO = "classificacao";
-         private static final String KEY_EDITORA = "editora";
-         private static final String KEY_ID = "id";
-         private static final String KEY_LOCAL = "local";
-         private static final String KEY_PAGINA = "pagina";
-         private static final String KEY_REFERENCIA = "referencia";
-         private static final String KEY_VOLUME = "volume";
-         private static final String KEY_UNITERMO = "UNITERMO";
-         private static final String KEY_URL = "url";
-         private static final String KEY_CODIGO_MATERIAL = "codmaterial";
-
-         */
-        /
+        values.put(KEY_CODIGO_MATERIAL, material.getCodigoMaterial());
 
         // 3. insert
         long i = 0;
@@ -92,7 +77,7 @@ public class SQLiteMaterial {
         return i;
     }
 
-    public Mensagem getMensagem(int id){
+    public Material getMaterial(int id){
 
         // 1. get reference to readable DB
         SQLiteDatabase db = banco.getReadableDatabase();
@@ -113,22 +98,70 @@ public class SQLiteMaterial {
             cursor.moveToFirst();
 
         // 4. build book object
-        Mensagem msg = new Mensagem();
-        msg.setCodigo(Integer.parseInt(cursor.getString(0)));
-        msg.setMensagem(cursor.getString(1));
-        msg.setDataInicio(cursor.getString(2));
-        msg.setDataFim(cursor.getString(3));
-        msg.setVisivel(cursor.getString(4));
-        msg.setTipo(cursor.getString(5));
-        msg.setHorario(cursor.getString(6));
+        Material material = new Material();
+        material.setCodigoMaterial(Integer.parseInt(cursor.getString(0)));
+        material.setAno(cursor.getString(1));
+        material.setClassificacao(cursor.getString(2));
+        material.setEditora(cursor.getString(3));
+        material.setLocal(cursor.getString(4));
+        material.setPagina(cursor.getString(5));
+        material.setReferencia(cursor.getString(6));
+        material.setUnitermo(cursor.getString(7));
+        material.setVolume(cursor.getString(8));
+        material.setUrl(cursor.getString(9));
 
-        Log.d("getMensagem("+id+")", msg.toString());
-        return msg;
+        Log.d("getMaterial(" + id + ")", material.toString());
+        return material;
     }
 
-    public ArrayList<Mensagem> getAllMensagens() {
-        //List<Usuario> usuarios = new LinkedList<Usuario>();
-        ArrayList<Mensagem> listaMSG = new ArrayList<Mensagem>();
+
+
+    public Material getUltimoMaterial(){
+
+        // 1. get reference to readable DB
+        SQLiteDatabase db = banco.getReadableDatabase();
+
+
+        String sql = "SELECT * FROM " + TABLE_MATERIAL + " WHERE ID = (SELECT MAX(ID) FROM TABLE)";
+
+        // 2. build query
+        Cursor cursor =
+                db.query(TABLE_MATERIAL, // a. table
+                        COLUMNS, // b. column names
+                        null, // c. selections
+                        null, // d. selections args
+                        null, // e. group by
+                        null, // f. having
+                        null, // g. order by
+                        null); // h. limit
+
+        // 3. if we got results get the first one
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // 4. build book object
+        Material material = new Material();
+        material.setCodigoMaterial(Integer.parseInt(cursor.getString(0)));
+        material.setAno(cursor.getString(1));
+        material.setClassificacao(cursor.getString(2));
+        material.setEditora(cursor.getString(3));
+        material.setLocal(cursor.getString(4));
+        material.setPagina(cursor.getString(5));
+        material.setReferencia(cursor.getString(6));
+        material.setUnitermo(cursor.getString(7));
+        material.setVolume(cursor.getString(8));
+        material.setUrl(cursor.getString(9));
+
+        Log.d("getMaterial(" + material.getCodigoMaterial() + ")", material.toString());
+        return material;
+    }
+
+
+
+
+    public ArrayList<Material> getAllMaterial() {
+
+        ArrayList<Material> listaMateriais = new ArrayList<Material>();
 
         // 1. build the query
         String query = "SELECT  * FROM " + TABLE_MATERIAL;
@@ -138,68 +171,26 @@ public class SQLiteMaterial {
         Cursor cursor = db.rawQuery(query, null);
 
         // 3. go over each row, build book and add it to list
-        Mensagem msg = null;
+        Material material = null;
         if (cursor.moveToFirst()) {
             do {
-                msg = new Mensagem();
-                msg.setCodigo(Integer.parseInt(cursor.getString(0)));
-                msg.setMensagem(cursor.getString(1));
-                msg.setDataInicio(cursor.getString(2));
-                msg.setDataFim(cursor.getString(3));
-                msg.setVisivel(cursor.getString(4));
-                msg.setTipo(cursor.getString(5));
-                msg.setHorario(cursor.getString(6));
+                material = new Material();
+                material.setCodigoMaterial(Integer.parseInt(cursor.getString(0)));
+                material.setAno(cursor.getString(1));
+                material.setClassificacao(cursor.getString(2));
+                material.setEditora(cursor.getString(3));
+                material.setLocal(cursor.getString(4));
+                material.setPagina(cursor.getString(5));
+                material.setReferencia(cursor.getString(6));
+                material.setUnitermo(cursor.getString(7));
+                material.setVolume(cursor.getString(8));
+                material.setUrl(cursor.getString(9));
 
-                listaMSG.add(msg);
+                listaMateriais.add(material);
             } while (cursor.moveToNext());
         }
 
-        Log.d("getAllMSG()", listaMSG.toString());
-        return listaMSG;
+        Log.d("getAllMSG()", listaMateriais.toString());
+        return listaMateriais;
     }
-
-    // Updating single mensagem
-    public int updateMensagem(Mensagem msg) {
-
-        // 1. get reference to writable DB
-        SQLiteDatabase db = banco.getWritableDatabase();
-
-        // 2. create ContentValues to add key "column"/value
-        ContentValues values = new ContentValues();
-        values.put("mensagem", msg.getMensagem());
-        values.put("dataInicio", msg.getDataInicio());
-        values.put("dataFim", msg.getDataFim());
-        values.put("visibilidade", msg.getVisivel());
-        values.put("tipo", msg.getTipo());
-        values.put("horario", msg.getHorario());
-
-        // 3. updating row
-        int i = db.update(TABLE_MATERIAL, //table
-                values, // column/value
-                KEY_ID+" = ?", // selections
-                new String[] { String.valueOf(msg.getCodigo()) }); //selection args
-
-        // 4. close
-        db.close();
-        return i;
-    }
-
-    // Deleting single book
-    public long deleteMensagem(Mensagem msg) {
-
-        // 1. get reference to writable DB
-        SQLiteDatabase db = banco.getWritableDatabase();
-
-        // 2. delete
-        long i = 0;
-        i = db.delete(TABLE_MATERIAL,
-                KEY_ID+" = ?",
-                new String[] { String.valueOf(msg.getCodigo()) });
-
-        // 3. close
-        db.close();
-        Log.d("deleteMensagem", msg.toString());
-        return i;
-    }
-
 }

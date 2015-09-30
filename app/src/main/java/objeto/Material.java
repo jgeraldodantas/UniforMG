@@ -15,14 +15,14 @@ public class Material {
     private String classificacao;
     private String referencia;
     private String url;
-    private String codigo;
+    private int codigoMaterial;
 
-    public String getCodigoLivro() {
-        return codigo;
+    public int getCodigoMaterial() {
+        return codigoMaterial;
     }
 
-    public void setCodigoLivro(String codigo) {
-        this.codigo = codigo;
+    public void setCodigoMaterial(int codigo) {
+        this.codigoMaterial = codigo;
     }
 
     public String getTitulo() {
