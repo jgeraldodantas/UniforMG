@@ -6,11 +6,10 @@ package objeto;
 public class Livro extends Material{
 
     private String autor;
-    private String cutter;
-    private String cidade;
-    private String quantidade;
-    private String numeroTombo;
     private int codigoLivro;
+    private String cutter;
+    private String isbn;
+    private String numeroTombo;
 
     public String getAutor() {
         return autor;
@@ -18,6 +17,14 @@ public class Livro extends Material{
 
     public void setAutor(String autor) {
         this.autor = autor;
+    }
+
+    public int getCodigoLivro() {
+        return codigoLivro;
+    }
+
+    public void setCodigoLivro(int codigoLivro) {
+        this.codigoLivro = codigoLivro;
     }
 
     public String getCutter() {
@@ -28,16 +35,12 @@ public class Livro extends Material{
         this.cutter = cutter;
     }
 
-    public String getCidade() { return cidade; }
-
-    public void setCidade(String cidade) { this.cidade = cidade; }
-
-    public String getQuantidade() {
-        return quantidade;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setQuantidade(String quantidade) {
-        this.quantidade = quantidade;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getNumeroTombo() {
@@ -48,11 +51,4 @@ public class Livro extends Material{
         this.numeroTombo = numeroTombo;
     }
 
-    public int getCodigoLivro() {
-        return codigoLivro;
-    }
-
-    public void setCodigoLivro(int codigoLivro) {
-        this.codigoLivro = codigoLivro;
-    }
 }

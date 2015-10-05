@@ -27,7 +27,7 @@
             android:layout_height="39dp"
             android:src="@drawable/lupa2"
             android:background="@null"
-            android:id="@+id/busca"
+            android:id="@+id/ibBusca"
             android:layout_weight="0.12" />
     </LinearLayout>
 
@@ -53,20 +53,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvTipo"
-        android:text="Tipo" />
-
-    <TextView
-        android:layout_width="357dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTitulo"
-        android:text="Título" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAutor"
-        android:text="Autor" />
+        android:id="@+id/tvUnitermo"/>
 
     <View
         android:layout_height="1.2dip"

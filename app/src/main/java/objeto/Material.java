@@ -5,49 +5,15 @@ package objeto;
  */
 public class Material {
 
-    private String titulo;
-    private String volume;
-    private String pagina;
     private String ano;
+    private String classificacao;
+    private int codigoMaterial;
     private String editora;
     private String local;
-    private String unitermo;
-    private String classificacao;
     private String referencia;
-    private String url;
-    private int codigoMaterial;
-
-    public int getCodigoMaterial() {
-        return codigoMaterial;
-    }
-
-    public void setCodigoMaterial(int codigo) {
-        this.codigoMaterial = codigo;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getVolume() {
-        return volume;
-    }
-
-    public void setVolume(String volume) {
-        this.volume = volume;
-    }
-
-    public String getPagina() {
-        return pagina;
-    }
-
-    public void setPagina(String pagina) {
-        this.pagina = pagina;
-    }
+    private String titulo;
+    private String unitermo;
+    private String volume;
 
     public String getAno() {
         return ano;
@@ -55,6 +21,22 @@ public class Material {
 
     public void setAno(String ano) {
         this.ano = ano;
+    }
+
+    public String getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(String classificacao) {
+        this.classificacao = classificacao;
+    }
+
+    public int getCodigoMaterial() {
+        return codigoMaterial;
+    }
+
+    public void setCodigoMaterial(int codigoMaterial) {
+        this.codigoMaterial = codigoMaterial;
     }
 
     public String getEditora() {
@@ -73,22 +55,6 @@ public class Material {
         this.local = local;
     }
 
-    public String getUnitermo() {
-        return unitermo;
-    }
-
-    public void setUnitermo(String unitermo) {
-        this.unitermo = unitermo;
-    }
-
-    public String getClassificacao() {
-        return classificacao;
-    }
-
-    public void setClassificacao(String classificacao) {
-        this.classificacao = classificacao;
-    }
-
     public String getReferencia() {
         return referencia;
     }
@@ -97,11 +63,27 @@ public class Material {
         this.referencia = referencia;
     }
 
-    public String getUrl() {
-        return url;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getUnitermo() {
+        return unitermo;
+    }
+
+    public void setUnitermo(String unitermo) {
+        this.unitermo = unitermo;
+    }
+
+    public String getVolume() {
+        return volume;
+    }
+
+    public void setVolume(String volume) {
+        this.volume = volume;
     }
 }

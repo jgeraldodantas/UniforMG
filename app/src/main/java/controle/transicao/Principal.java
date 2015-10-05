@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,6 +18,7 @@ import com.example.uniformg.uniformg.R;
 
 import controle.material.PesquisaIndexSIAB;
 import controle.mensagem.ListaMensagem;
+import modelo.SQLiteLivro;
 import modelo.SQLiteMensagem;
 import modelo.SQLiteUsuario;
 import modelo.WebService;
@@ -27,7 +26,6 @@ import objeto.Mensagem;
 import objeto.Usuario;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import controle.usuario.Autenticacao;
 import controle.usuario.CadastroUsuario;
@@ -35,13 +33,19 @@ import controle.material.PesquisaAcervoGnuteca;
 import modelo.MySQLiteHelper;
 
 public class Principal extends AppCompatActivity {
-    Context context;
+
     TextView tvUsuario;
     ImageButton ibtConfiguracao,ibtAddUser,ibtPesqAcervoGnuteca,ibtPesqIndexSIAB,ibtMensagens;
- //   MySQLiteHelper banco = new MySQLiteHelper(this);
-    SQLiteUsuario bancoUSER = new SQLiteUsuario(this);
-    SQLiteMensagem bancoMSG = new SQLiteMensagem(this);
+
+    Context context = this;
     WebService web;
+
+    SQLiteUsuario bancoUSER = new SQLiteUsuario(context);
+    SQLiteMensagem bancoMSG = new SQLiteMensagem(context);
+    SQLiteLivro bancoLivro = new SQLiteLivro(context);
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +55,17 @@ public class Principal extends AppCompatActivity {
         tvUsuario = (TextView) findViewById(R.id.tvUsuario);
         if(verificaUsuario()){
 
-        //    ibtAddUser = (ImageButton) findViewById(R.id.ibtAddUsuario);
+            //    ibtAddUser = (ImageButton) findViewById(R.id.ibtAddUsuario);
             ibtConfiguracao = (ImageButton) findViewById(R.id.ibtConfiguracao);
             ibtPesqAcervoGnuteca = (ImageButton) findViewById(R.id.ibtPesquisaAcervoGnuteca);
             ibtPesqIndexSIAB = (ImageButton) findViewById(R.id.ibtPesquisaIndexSIAB);
             ibtMensagens = (ImageButton) findViewById(R.id.ibtMensagens);
-            ListaMensagem msg = new ListaMensagem();
 
-            if (bancoMSG.getAllMensagens().isEmpty()){ msg.buscaMensagensWebService(this); }
+            ListaMensagem msg = new ListaMensagem();
+        //    PesquisaIndexSIAB index = new PesquisaIndexSIAB();
+
+            if (bancoMSG.getAllMensagens().isEmpty()){ msg.buscaMensagensWebService(context); }
+        //    if (bancoLivro.getAllLivro().isEmpty()){ index.buscaLivrosWebService(context); }
 
             ArrayList<Mensagem> listaMSG = bancoMSG.getAllMensagens();
             if(!listaMSG.isEmpty()){
@@ -81,7 +88,7 @@ public class Principal extends AppCompatActivity {
             ibtConfiguracao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-               telaConfiguracoes(v);
+                    telaConfiguracoes(v);
                 }
 
             });
@@ -105,7 +112,7 @@ public class Principal extends AppCompatActivity {
             ibtMensagens.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(Principal.this,ListaMensagem.class));
+                    startActivity(new Intent(context,ListaMensagem.class));
                 }
 
             });
@@ -118,10 +125,9 @@ public class Principal extends AppCompatActivity {
 
     }
 
-
     public void exibirMensagem(final String mensagem){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Atenção!");
         builder.setMessage(mensagem)
                 .setCancelable(false)
@@ -139,33 +145,33 @@ public class Principal extends AppCompatActivity {
     }
 
     public void telaAutenticacao(View view){
-        Intent it_principal = new Intent(this,Autenticacao.class);
+        Intent it_principal = new Intent(context,Autenticacao.class);
         startActivity(it_principal);
         finish();
     }
 
     public void telaAddUsuarios(View view){
-        Intent it_principal = new Intent(this,CadastroUsuario.class);
+        Intent it_principal = new Intent(context,CadastroUsuario.class);
         startActivity(it_principal);
     }
 
     public void telaConfiguracoes(View view){
-        Intent it_principal = new Intent(this,Configuracoes.class);
+        Intent it_principal = new Intent(context,Configuracoes.class);
         startActivity(it_principal);
     }
 
     public void telaListaMensagem(View view){
-        Intent it_principal = new Intent(this,ListaMensagem.class);
+        Intent it_principal = new Intent(context,ListaMensagem.class);
         startActivity(it_principal);
     }
 
     public void telaPesqAcervo(View view){
-        Intent it_principal = new Intent(this,PesquisaAcervoGnuteca.class);
+        Intent it_principal = new Intent(context,PesquisaAcervoGnuteca.class);
         startActivity(it_principal);
     }
 
     public void telaPesqIndexSIAB(View view){
-        Intent it_principal = new Intent(this,PesquisaIndexSIAB.class);
+        Intent it_principal = new Intent(context,PesquisaIndexSIAB.class);
         startActivity(it_principal);
     }
 
@@ -174,7 +180,7 @@ public class Principal extends AppCompatActivity {
         usuario = bancoUSER.getAllUsers();
 
         if(!usuario.isEmpty()){
-        //    Toast.makeText(Principal.this, "Bem vindo ! \n"+usuario.get(0).getNome(), Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(Principal.this, "Bem vindo ! \n"+usuario.get(0).getNome(), Toast.LENGTH_SHORT).show();
             tvUsuario.setText(usuario.get(0).getNome());
             return true;
         }

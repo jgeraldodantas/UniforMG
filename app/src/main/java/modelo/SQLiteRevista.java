@@ -14,7 +14,7 @@ import objeto.Material;
 /**
  * Created by - on 14/09/2015.
  */
-public class SQLiteLivro {
+public class SQLiteRevista {
 
     private MySQLiteHelper banco;
     private static final String TABLE_LIVRO = "livro";
@@ -27,7 +27,7 @@ public class SQLiteLivro {
     private static final String KEY_QUANTIDADE = "quantidade";
     private static final String[] COLUMNS = {KEY_ID, KEY_AUTOR, KEY_CIDADE, KEY_ID_MATERIAL, KEY_CUTTER, KEY_NUMERO_TOMBO, KEY_QUANTIDADE};
     private Context con;
-    public SQLiteLivro(Context context){
+    public SQLiteRevista(Context context){
         con = context;
         banco = new MySQLiteHelper(context);
     }

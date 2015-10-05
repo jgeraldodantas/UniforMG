@@ -37,12 +37,11 @@ import objeto.Mensagem;
 
 public class ListaMensagem extends ListActivity {
 
-  //  Activity telaMensagens;
     TextView tvHorario,tvMensagem,tvData,tvVisivel,tvTipo;
     SQLiteMensagem banco = new SQLiteMensagem(this);
-    WebService web;
-    String texto;
     ArrayAdapter<String> listaMensagens;
+    WebService web;
+    int posicao=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class ListaMensagem extends ListActivity {
         listarMensagens(this);
     }
 
-//    public ArrayList<Mensagem> buscaMensagens(){
+    //    public ArrayList<Mensagem> buscaMensagens(){
     public void buscaMensagensWebService(Context context){
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -72,7 +71,7 @@ public class ListaMensagem extends ListActivity {
             Log.i("mensagem teste 45", "" + resposta);
 
             mensagens = resposta.split("#");
-            for(int i=0;i<=mensagens.length-1;i++){
+            for(int i=0;i<mensagens.length-1;i++){
                 msg = new Mensagem();
                 texto = mensagens[i].toString().split("%");
 
@@ -84,15 +83,17 @@ public class ListaMensagem extends ListActivity {
                 msg.setHorario(texto[5]);
 
                 banco.addMensagem(msg);
+                //    listaMSG.add(msg);
             }
         }
         catch(Exception erro){ Log.i("erro", "erro = "+erro); }
-    //    return listaMSG;
+        //    return listaMSG;
     }
 
     public void listarMensagens(Context context) {
         SQLiteMensagem banco = new SQLiteMensagem(context);
         ArrayList<Mensagem> listaMSG = banco.getAllMensagens();
+
         if(listaMSG.isEmpty()){
             finish();
             Toast.makeText( ListaMensagem.this, "Não há mensagens para serem exibidas.", Toast.LENGTH_LONG).show(); }
@@ -114,7 +115,6 @@ public class ListaMensagem extends ListActivity {
 
         View checkBoxView = View.inflate(this, R.layout.checkbox, null);
         final CheckBox checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
-        checkBox.setText("Não exibir novamente.");
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -123,7 +123,7 @@ public class ListaMensagem extends ListActivity {
                 // Save to shared preferences
             }
         });
-
+        checkBox.setText("Não exibir novamente.");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Atenção!");
@@ -146,10 +146,9 @@ public class ListaMensagem extends ListActivity {
                 })
                 .setNegativeButton("", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+
                     }
                 }).show();
-
     }
 
     protected void onListItemClick(ListView l, View v, int position, long id) {

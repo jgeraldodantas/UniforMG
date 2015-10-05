@@ -58,13 +58,20 @@
         <activity
             android:name="controle.material.PesquisaIndexSIAB"
             android:label="@string/title_activity_pesquisa_index"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/ImagemFundo" >
         </activity>
         <activity
             android:name="controle.mensagem.ListaMensagem"
-            android:theme="@style/ImagemFundo"
             android:label="@string/title_activity_lista_mensagem"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/ImagemFundo" >
+        </activity>
+        <activity
+            android:name="controle.material.ListaIndexacao"
+            android:label="@string/title_activity_lista_indexacao"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImagemFundo" >
         </activity>
     </application>
 

@@ -26,11 +26,11 @@ public class SQLiteMaterial {
     private static final String KEY_PAGINA = "pagina";
     private static final String KEY_REFERENCIA = "referencia";
     private static final String KEY_VOLUME = "volume";
+    private static final String KEY_TITULO = "titulo";
     private static final String KEY_UNITERMO = "unitermo";
     private static final String KEY_URL = "url";
     private static final String KEY_CODIGO_MATERIAL = "codmaterial";
-    private static final String[] COLUMNS = {KEY_ID, KEY_ANO, KEY_CLASSIFICACAO, KEY_EDITORA, KEY_LOCAL, KEY_PAGINA, KEY_REFERENCIA, KEY_VOLUME, KEY_UNITERMO, KEY_URL, KEY_CODIGO_MATERIAL};
-
+    private static final String[] COLUMNS = {KEY_ID, KEY_ANO, KEY_CLASSIFICACAO, KEY_EDITORA, KEY_LOCAL, KEY_PAGINA, KEY_REFERENCIA, KEY_VOLUME,KEY_TITULO, KEY_UNITERMO, KEY_URL, KEY_CODIGO_MATERIAL};
 
     public SQLiteMaterial(Context context){
         banco = new MySQLiteHelper(context);
@@ -53,17 +53,15 @@ public class SQLiteMaterial {
         SQLiteDatabase db = banco.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-
         values.put(KEY_ID, material.getCodigoMaterial());
         values.put(KEY_ANO, material.getAno());
         values.put(KEY_CLASSIFICACAO, material.getClassificacao());
         values.put(KEY_EDITORA, material.getEditora());
         values.put(KEY_LOCAL, material.getLocal());
-        values.put(KEY_PAGINA, material.getPagina());
         values.put(KEY_REFERENCIA, material.getReferencia());
+        values.put(KEY_TITULO, material.getUnitermo());
         values.put(KEY_UNITERMO, material.getUnitermo());
         values.put(KEY_VOLUME, material.getVolume());
-        values.put(KEY_URL, material.getUrl());
         values.put(KEY_CODIGO_MATERIAL, material.getCodigoMaterial());
 
         // 3. insert
@@ -104,11 +102,10 @@ public class SQLiteMaterial {
         material.setClassificacao(cursor.getString(2));
         material.setEditora(cursor.getString(3));
         material.setLocal(cursor.getString(4));
-        material.setPagina(cursor.getString(5));
         material.setReferencia(cursor.getString(6));
-        material.setUnitermo(cursor.getString(7));
-        material.setVolume(cursor.getString(8));
-        material.setUrl(cursor.getString(9));
+        material.setTitulo(cursor.getString(7));
+        material.setUnitermo(cursor.getString(8));
+        material.setVolume(cursor.getString(9)); //
 
         Log.d("getMaterial(" + id + ")", material.toString());
         return material;
@@ -146,11 +143,10 @@ public class SQLiteMaterial {
         material.setClassificacao(cursor.getString(2));
         material.setEditora(cursor.getString(3));
         material.setLocal(cursor.getString(4));
-        material.setPagina(cursor.getString(5));
         material.setReferencia(cursor.getString(6));
-        material.setUnitermo(cursor.getString(7));
-        material.setVolume(cursor.getString(8));
-        material.setUrl(cursor.getString(9));
+        material.setTitulo(cursor.getString(7));
+        material.setUnitermo(cursor.getString(8));
+        material.setVolume(cursor.getString(9));
 
         Log.d("getMaterial(" + material.getCodigoMaterial() + ")", material.toString());
         return material;
@@ -180,11 +176,10 @@ public class SQLiteMaterial {
                 material.setClassificacao(cursor.getString(2));
                 material.setEditora(cursor.getString(3));
                 material.setLocal(cursor.getString(4));
-                material.setPagina(cursor.getString(5));
                 material.setReferencia(cursor.getString(6));
-                material.setUnitermo(cursor.getString(7));
-                material.setVolume(cursor.getString(8));
-                material.setUrl(cursor.getString(9));
+                material.setTitulo(cursor.getString(7));
+                material.setUnitermo(cursor.getString(8));
+                material.setVolume(cursor.getString(9));
 
                 listaMateriais.add(material);
             } while (cursor.moveToNext());

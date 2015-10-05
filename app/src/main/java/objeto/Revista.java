@@ -5,17 +5,71 @@ package objeto;
  */
 public class Revista extends Material {
 
-    private String mes;
+    private String anoInicio;
+    private String anoFim;
+    private String colecao;
+    private String corrente;
+    private String issn;
+    private String mesInicio;
+    private String mesFim;
     private String numero;
     private String periodicidade;
     private String codigoRevista;
 
-    public String getMes() {
-        return mes;
+    public String getAnoInicio() {
+        return anoInicio;
     }
 
-    public void setMes(String mes) {
-        this.mes = mes;
+    public void setAnoInicio(String anoInicio) {
+        this.anoInicio = anoInicio;
+    }
+
+    public String getAnoFim() {
+        return anoFim;
+    }
+
+    public void setAnoFim(String anoFim) {
+        this.anoFim = anoFim;
+    }
+
+    public String getColecao() {
+        return colecao;
+    }
+
+    public void setColecao(String colecao) {
+        this.colecao = colecao;
+    }
+
+    public String getCorrente() {
+        return corrente;
+    }
+
+    public void setCorrente(String corrente) {
+        this.corrente = corrente;
+    }
+
+    public String getIssn() {
+        return issn;
+    }
+
+    public void setIssn(String issn) {
+        this.issn = issn;
+    }
+
+    public String getMesInicio() {
+        return mesInicio;
+    }
+
+    public void setMesInicio(String mesInicio) {
+        this.mesInicio = mesInicio;
+    }
+
+    public String getMesFim() {
+        return mesFim;
+    }
+
+    public void setMesFim(String mesFim) {
+        this.mesFim = mesFim;
     }
 
     public String getNumero() {

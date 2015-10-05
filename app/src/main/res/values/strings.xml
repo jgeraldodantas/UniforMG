@@ -12,4 +12,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_lista_mensagem">Mensagens</string>
+    <string name="title_activity_lista_indexacao">Lista Indexação</string>
 </resources>

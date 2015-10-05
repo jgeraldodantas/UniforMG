@@ -30,7 +30,7 @@ public class WebService {
     public  static final String AUTENTICACAO = "usuario/autenticacao.php";
     public  static final String IMPORTA_LIVRO_SIAB = "material/importaLivrosSIAB.php";
     public  static final String IMPORTA_MSG_SIAB = "mensagem/importaMensagensSIAB.php";
-    public  static final String IMPORTA_REVISTA_SIAB = "material/importaRevistasIAB.php";
+    public  static final String IMPORTA_REVISTA_SIAB = "material/importaRevistasSIAB.php";
 
     private static HttpClient getHttpClient() {
         if (httpClient == null) {
