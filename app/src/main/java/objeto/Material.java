@@ -5,9 +5,9 @@ package objeto;
  */
 public class Material {
 
+    private int codigoMaterial;
     private String ano;
     private String classificacao;
-    private int codigoMaterial;
     private String editora;
     private String local;
     private String referencia;

@@ -8,25 +8,108 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import objeto.Livro;
 import objeto.Material;
+import objeto.Revista;
 
 /**
  * Created by - on 14/09/2015.
  */
 public class SQLiteRevista {
 
-    private MySQLiteHelper banco;
-    private static final String TABLE_LIVRO = "livro";
-    private static final String KEY_AUTOR = "autor";
-    private static final String KEY_CIDADE = "cidade";
-    private static final String KEY_ID_MATERIAL = "codmaterial";
-    private static final String KEY_CUTTER = "cutter";
-    private static final String KEY_ID = "id";
-    private static final String KEY_NUMERO_TOMBO = "numerotombo";
-    private static final String KEY_QUANTIDADE = "quantidade";
-    private static final String[] COLUMNS = {KEY_ID, KEY_AUTOR, KEY_CIDADE, KEY_ID_MATERIAL, KEY_CUTTER, KEY_NUMERO_TOMBO, KEY_QUANTIDADE};
     private Context con;
+    private MySQLiteHelper banco;
+    public static SQLiteMaterial sqlLiteMaterial;
+    public static final String TABLE_REVISTA = "revista";
+    public static final String KEY_ID = "id";
+    public static final String KEY_ID_MATERIAL = "codmaterial";
+    public static final String KEY_ANO_FIM = "anofim";
+    public static final String KEY_ANO_INICIO = "anoinicio";
+    public static final String KEY_COLECAO = "colecao";
+    public static final String KEY_CORRENTE = "corrente";
+    public static final String KEY_ISSN = "issn";
+    public static final String KEY_MES_FIM = "mesfim";
+    public static final String KEY_MES_INICIO = "mesinicio";
+    public static final String KEY_NUMERO = "numero";
+    public static final String KEY_PERIODICIDADE = "periodicidade";
+    private static final String[] COLUMNS = {KEY_ID,KEY_ID_MATERIAL,KEY_ANO_FIM,KEY_ANO_INICIO, KEY_COLECAO,KEY_CORRENTE,KEY_ISSN,KEY_MES_FIM,KEY_MES_INICIO,KEY_NUMERO,KEY_PERIODICIDADE};
+
+    private int idRevista;
+    private int anoFim;
+    private int anoInicio;
+    private int colecao;
+    private int corrente;
+    private int issn;
+    private int mesFim;
+    private int meInicio;
+    private int numero;
+    private int periodicidade;
+
+    private int idMaterial;
+    private int ano;
+    private int classificacao;
+    private int editora;
+    private int local;
+    private int referencia;
+    private int titulo;
+    private int unitermo;
+    private int volume;
+
+    private static final String SQL_SELECT = "SELECT DISTINCT ("+ sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_ID +"), " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_ID + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_ANO + ", "+
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_CLASSIFICACAO + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_EDITORA + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_LOCAL + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_REFERENCIA + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_TITULO + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_UNITERMO + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_VOLUME + "," +
+            TABLE_REVISTA + "." +  KEY_ID + ", "+
+            TABLE_REVISTA + "." +  KEY_ANO_FIM + ", "+
+            TABLE_REVISTA + "." +  KEY_ANO_INICIO + ", "+
+            TABLE_REVISTA + "." +  KEY_COLECAO + ", "+
+            TABLE_REVISTA + "." +  KEY_CORRENTE + ", "+
+            TABLE_REVISTA + "." +  KEY_ISSN + ", "+
+            TABLE_REVISTA + "." +  KEY_MES_FIM + ", "+
+            TABLE_REVISTA + "." +  KEY_MES_INICIO + ", "+
+            TABLE_REVISTA + "." +  KEY_NUMERO + ", "+
+            TABLE_REVISTA + "." +  KEY_PERIODICIDADE +
+            " FROM " + sqlLiteMaterial.TABLE_MATERIAL + "," + TABLE_REVISTA +
+            " WHERE " + sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_ID +" = " + TABLE_REVISTA+"."+KEY_ID_MATERIAL;
+
+    private static final String SQL_GROUP_BY = " GROUP BY " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_ID + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_ANO + ", "+
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_CLASSIFICACAO + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_EDITORA + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_LOCAL + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_REFERENCIA + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_TITULO + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_UNITERMO + ", " +
+            sqlLiteMaterial.TABLE_MATERIAL + "." + sqlLiteMaterial.KEY_VOLUME + "," +
+            TABLE_REVISTA + "." +  KEY_ID + ", "+
+            TABLE_REVISTA + "." +  KEY_ANO_FIM + ", "+
+            TABLE_REVISTA + "." +  KEY_ANO_INICIO + ", "+
+            TABLE_REVISTA + "." +  KEY_COLECAO + ", "+
+            TABLE_REVISTA + "." +  KEY_CORRENTE + ", "+
+            TABLE_REVISTA + "." +  KEY_ISSN + ", "+
+            TABLE_REVISTA + "." +  KEY_MES_FIM + ", "+
+            TABLE_REVISTA + "." +  KEY_MES_INICIO + ", "+
+            TABLE_REVISTA + "." +  KEY_NUMERO + ", "+
+            TABLE_REVISTA + "." +  KEY_PERIODICIDADE+";";
+
+/*
+    revista.setAnoFim(texto[1]);
+    revista.setAnoInicio(texto[2]);
+    revista.setColecao(texto[4]);
+    revista.setCorrente(texto[5]);
+    revista.setIssn(texto[7]);
+    revista.setMesFim(texto[9]);
+    revista.setMesInicio(texto[10]);
+    revista.setNumero(texto[11]);
+    revista.setPeriodicidade(texto[12]);
+*/
+
     public SQLiteRevista(Context context){
         con = context;
         banco = new MySQLiteHelper(context);
@@ -34,16 +117,16 @@ public class SQLiteRevista {
 
     public void reiniciaTabelaMensagem(SQLiteDatabase db){
 
-        String DELETE_TABLE = "DELETE FROM livro";
-        String DELETE_INDEX_TABLE = " DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'livro'";
+        String DELETE_TABLE = "DELETE FROM revista";
+        String DELETE_INDEX_TABLE = " DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'revista'";
 
         db.execSQL(DELETE_TABLE);
         db.execSQL(DELETE_INDEX_TABLE);
         banco.onCreate(db);
     }
 
-    public long addLivro(Livro livro){
-        Log.d("addLivro", livro.getClassificacao());
+    public long addRevista(Revista revista){
+        Log.d("addRevista", revista.getClassificacao());
         // 1. get reference to writable DB
 
         SQLiteMaterial dbMaterial = new SQLiteMaterial(con);
@@ -52,13 +135,14 @@ public class SQLiteRevista {
         Material material = new Material();
         long i = 0;
 
-        material.setAno(livro.getAno());
-        material.setClassificacao(livro.getClassificacao());
-        material.setEditora(livro.getEditora());
-        material.setLocal(livro.getLocal());
-        material.setReferencia(livro.getReferencia());
-        material.setUnitermo(livro.getUnitermo());
-        material.setVolume(livro.getVolume());
+        material.setAno(revista.getAno());
+        material.setClassificacao(revista.getClassificacao());
+        material.setEditora(revista.getEditora());
+        material.setLocal(revista.getLocal());
+        material.setReferencia(revista.getReferencia());
+        material.setTitulo(revista.getTitulo());
+        material.setUnitermo(revista.getUnitermo());
+        material.setVolume(revista.getVolume());
 
         if (dbMaterial.addMaterial(material) > 0){
 
@@ -66,13 +150,19 @@ public class SQLiteRevista {
             material = dbMaterial.getUltimoMaterial();
             if(material.getCodigoMaterial() > 0) {
 
-                values.put(KEY_AUTOR, livro.getAutor());
-                values.put(KEY_CUTTER, livro.getCutter());
-                values.put(KEY_NUMERO_TOMBO, livro.getNumeroTombo());
                 values.put(KEY_ID_MATERIAL, material.getCodigoMaterial());
+                values.put(KEY_ANO_FIM, revista.getAnoFim());
+                values.put(KEY_ANO_INICIO, revista.getAnoInicio());
+                values.put(KEY_COLECAO, revista.getColecao());
+                values.put(KEY_CORRENTE, revista.getCorrente());
+                values.put(KEY_ISSN, revista.getIssn());
+                values.put(KEY_MES_FIM, revista.getMesFim());
+                values.put(KEY_MES_INICIO, revista.getMesInicio());
+                values.put(KEY_NUMERO, revista.getNumero());
+                values.put(KEY_PERIODICIDADE, revista.getPeriodicidade());
 
                 // 3. insert
-                i = db.insert(TABLE_LIVRO, // table
+                i = db.insert(TABLE_REVISTA, // table
                         null, //nullColumnHack
                         values); // key/value -> keys = column names/ values = column values
 
@@ -83,16 +173,16 @@ public class SQLiteRevista {
         return i;
     }
 
-    public Livro getLivro(int id){
+    public Revista getRevista(int id){
 
         // 1. get reference to readable DB
-        Livro livro = new Livro();
+        Revista revista = new Revista();
         SQLiteMaterial dbMaterial = new SQLiteMaterial(con);
         SQLiteDatabase db = banco.getReadableDatabase();
 
         // 2. build query
         Cursor cursor =
-                db.query(TABLE_LIVRO, // a. table
+                db.query(TABLE_REVISTA, // a. table
                         COLUMNS, // b. column names
                         " id = ?", // c. selections
                         new String[] { String.valueOf(id) }, // d. selections args
@@ -105,60 +195,185 @@ public class SQLiteRevista {
         if (cursor != null)
             cursor.moveToFirst();
 
+        idRevista = cursor.getColumnIndex(KEY_ID);
+        anoFim = cursor.getColumnIndex(KEY_ANO_FIM);
+        anoInicio = cursor.getColumnIndex(KEY_ANO_FIM);
+        colecao = cursor.getColumnIndex(KEY_COLECAO);
+        corrente = cursor.getColumnIndex(KEY_CORRENTE);
+        issn = cursor.getColumnIndex(KEY_ISSN);
+        mesFim = cursor.getColumnIndex(KEY_MES_FIM);
+        meInicio = cursor.getColumnIndex(KEY_MES_INICIO);
+        numero = cursor.getColumnIndex(KEY_NUMERO);
+        periodicidade = cursor.getColumnIndex(KEY_PERIODICIDADE);
+
+        idMaterial = cursor.getColumnIndex(sqlLiteMaterial.KEY_ID);
+        ano = cursor.getColumnIndex(sqlLiteMaterial.KEY_ANO);
+        classificacao = cursor.getColumnIndex(sqlLiteMaterial.KEY_CLASSIFICACAO);
+        editora = cursor.getColumnIndex(sqlLiteMaterial.KEY_EDITORA);
+        local = cursor.getColumnIndex(sqlLiteMaterial.KEY_LOCAL);
+        referencia = cursor.getColumnIndex(sqlLiteMaterial.KEY_REFERENCIA);
+        titulo = cursor.getColumnIndex(sqlLiteMaterial.KEY_TITULO);
+        unitermo = cursor.getColumnIndex(sqlLiteMaterial.KEY_UNITERMO);
+        volume = cursor.getColumnIndex(sqlLiteMaterial.KEY_VOLUME);
+
         // 4. build book object
-        livro.setCodigoMaterial(Integer.parseInt(cursor.getString(0)));
-        livro.setAno(cursor.getString(1));
-        livro.setClassificacao(cursor.getString(2));
-        livro.setEditora(cursor.getString(3));
-        livro.setLocal(cursor.getString(4));
-        livro.setReferencia(cursor.getString(6));
-        livro.setUnitermo(cursor.getString(7));
-        livro.setVolume(cursor.getString(8));
+        revista.setCodigoMaterial(Integer.parseInt(cursor.getString(idMaterial)));
+        revista.setAno(cursor.getString(ano));
+        revista.setClassificacao(cursor.getString(classificacao));
+        revista.setEditora(cursor.getString(editora));
+        revista.setLocal(cursor.getString(local));
+        revista.setReferencia(cursor.getString(referencia));
+        revista.setTitulo(cursor.getString(titulo));
+        revista.setUnitermo(cursor.getString(unitermo));
+        revista.setVolume(cursor.getString(volume));
 
-        livro.setCodigoLivro(Integer.parseInt(cursor.getString(10)));
-        livro.setAutor(cursor.getString(11));
-        livro.setCutter(cursor.getString(13));
-        livro.setNumeroTombo(cursor.getString(14));
+        revista.setAnoFim(cursor.getString(anoFim));
+        revista.setAnoInicio(cursor.getString(anoInicio));
+        revista.setColecao(cursor.getString(colecao));
+        revista.setCorrente(cursor.getString(corrente));
+        revista.setIssn(cursor.getString(issn));
+        revista.setMesFim(cursor.getString(mesFim));
+        revista.setMesInicio(cursor.getString(meInicio));
+        revista.setNumero(cursor.getString(numero));
+        revista.setPeriodicidade(cursor.getString(periodicidade));
 
-        Log.d("getLivro("+id+")", livro.toString());
-        return livro;
+        Log.d("getRevista("+id+")", revista.toString());
+        return revista;
     }
 
-    public ArrayList<Livro> getAllLivro() {
+    public ArrayList<Revista> getPesqRevista(String termo) {
 
-        ArrayList<Livro> listaLivros = new ArrayList<Livro>();
+        ArrayList<Revista> listaRevistas = new ArrayList<Revista>();
         SQLiteMaterial sqlMaterial;// = new SQLiteMaterial(con);
         // 1. build the query
-        String query = "SELECT * FROM material INNER JOIN " + TABLE_LIVRO + "  ON material.id = " + TABLE_LIVRO+"."+KEY_ID_MATERIAL;
-        //                select * from material inner join livro on material.codigo = livro.codmaterial where material.curso ilike '%".$curso."%';
+
+        String query = SQL_SELECT + " and material.unitermo like '%" + termo + "%'" + SQL_GROUP_BY;
+
         // 2. get reference to writable DB
         SQLiteDatabase db = banco.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
         // 3. go over each row, build book and add it to list
-        Livro livro = null;
+        Revista revista = null;
         if (cursor.moveToFirst()) {
             do {
-                livro = new Livro();
-                livro.setCodigoMaterial(Integer.parseInt(cursor.getString(0)));
-                livro.setAno(cursor.getString(1));
-                livro.setClassificacao(cursor.getString(2));
-                livro.setEditora(cursor.getString(3));
-                livro.setLocal(cursor.getString(4));
-                livro.setReferencia(cursor.getString(6));
-                livro.setUnitermo(cursor.getString(7));
-                livro.setVolume(cursor.getString(8));
+                idRevista = cursor.getColumnIndex(KEY_ID);
+                anoFim = cursor.getColumnIndex(KEY_ANO_FIM);
+                anoInicio = cursor.getColumnIndex(KEY_ANO_FIM);
+                colecao = cursor.getColumnIndex(KEY_COLECAO);
+                corrente = cursor.getColumnIndex(KEY_CORRENTE);
+                issn = cursor.getColumnIndex(KEY_ISSN);
+                mesFim = cursor.getColumnIndex(KEY_MES_FIM);
+                meInicio = cursor.getColumnIndex(KEY_MES_INICIO);
+                numero = cursor.getColumnIndex(KEY_NUMERO);
+                periodicidade = cursor.getColumnIndex(KEY_PERIODICIDADE);
 
-                livro.setCodigoLivro(Integer.parseInt(cursor.getString(10)));
-                livro.setAutor(cursor.getString(11));
-                livro.setCutter(cursor.getString(13));
-                livro.setNumeroTombo(cursor.getString(14));
+                idMaterial = cursor.getColumnIndex(sqlLiteMaterial.KEY_ID);
+                ano = cursor.getColumnIndex(sqlLiteMaterial.KEY_ANO);
+                classificacao = cursor.getColumnIndex(sqlLiteMaterial.KEY_CLASSIFICACAO);
+                editora = cursor.getColumnIndex(sqlLiteMaterial.KEY_EDITORA);
+                local = cursor.getColumnIndex(sqlLiteMaterial.KEY_LOCAL);
+                referencia = cursor.getColumnIndex(sqlLiteMaterial.KEY_REFERENCIA);
+                titulo = cursor.getColumnIndex(sqlLiteMaterial.KEY_TITULO);
+                unitermo = cursor.getColumnIndex(sqlLiteMaterial.KEY_UNITERMO);
+                volume = cursor.getColumnIndex(sqlLiteMaterial.KEY_VOLUME);
 
-                listaLivros.add(livro);
+                // 4. build book object
+                revista = new Revista();
+                revista.setCodigoMaterial(Integer.parseInt(cursor.getString(idMaterial)));
+                revista.setAno(cursor.getString(ano));
+                revista.setClassificacao(cursor.getString(classificacao));
+                revista.setEditora(cursor.getString(editora));
+                revista.setLocal(cursor.getString(local));
+                revista.setReferencia(cursor.getString(referencia));
+                revista.setTitulo(cursor.getString(titulo));
+                revista.setUnitermo(cursor.getString(unitermo));
+                revista.setVolume(cursor.getString(volume));
+
+                revista.setAnoFim(cursor.getString(anoFim));
+                revista.setAnoInicio(cursor.getString(anoInicio));
+                revista.setColecao(cursor.getString(colecao));
+                revista.setCorrente(cursor.getString(corrente));
+                revista.setIssn(cursor.getString(issn));
+                revista.setMesFim(cursor.getString(mesFim));
+                revista.setMesInicio(cursor.getString(meInicio));
+                revista.setNumero(cursor.getString(numero));
+                revista.setPeriodicidade(cursor.getString(periodicidade));
+
+                listaRevistas.add(revista);
             } while (cursor.moveToNext());
         }
 
-        Log.d("getAllLivro()", listaLivros.toString());
-        return listaLivros;
+        Log.d("getAllRevistas()", listaRevistas.toString());
+        return listaRevistas;
     }
+
+
+    public ArrayList<Revista> getAllRevista() {
+
+        ArrayList<Revista> listaRevistas = new ArrayList<Revista>();
+        SQLiteMaterial sqlMaterial;// = new SQLiteMaterial(con);
+        // 1. build the query
+
+        String query = SQL_SELECT + SQL_GROUP_BY;
+
+                // 2. get reference to writable DB
+        SQLiteDatabase db = banco.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        Revista revista = null;
+        if (cursor.moveToFirst()) {
+            do {
+                idRevista = cursor.getColumnIndex(KEY_ID);
+                anoFim = cursor.getColumnIndex(KEY_ANO_FIM);
+                anoInicio = cursor.getColumnIndex(KEY_ANO_FIM);
+                colecao = cursor.getColumnIndex(KEY_COLECAO);
+                corrente = cursor.getColumnIndex(KEY_CORRENTE);
+                issn = cursor.getColumnIndex(KEY_ISSN);
+                mesFim = cursor.getColumnIndex(KEY_MES_FIM);
+                meInicio = cursor.getColumnIndex(KEY_MES_INICIO);
+                numero = cursor.getColumnIndex(KEY_NUMERO);
+                periodicidade = cursor.getColumnIndex(KEY_PERIODICIDADE);
+
+                idMaterial = cursor.getColumnIndex(sqlLiteMaterial.KEY_ID);
+                ano = cursor.getColumnIndex(sqlLiteMaterial.KEY_ANO);
+                classificacao = cursor.getColumnIndex(sqlLiteMaterial.KEY_CLASSIFICACAO);
+                editora = cursor.getColumnIndex(sqlLiteMaterial.KEY_EDITORA);
+                local = cursor.getColumnIndex(sqlLiteMaterial.KEY_LOCAL);
+                referencia = cursor.getColumnIndex(sqlLiteMaterial.KEY_REFERENCIA);
+                titulo = cursor.getColumnIndex(sqlLiteMaterial.KEY_TITULO);
+                unitermo = cursor.getColumnIndex(sqlLiteMaterial.KEY_UNITERMO);
+                volume = cursor.getColumnIndex(sqlLiteMaterial.KEY_VOLUME);
+
+                // 4. build book object
+                revista = new Revista();
+                revista.setCodigoMaterial(Integer.parseInt(cursor.getString(idMaterial)));
+                revista.setAno(cursor.getString(ano));
+                revista.setClassificacao(cursor.getString(classificacao));
+                revista.setEditora(cursor.getString(editora));
+                revista.setLocal(cursor.getString(local));
+                revista.setReferencia(cursor.getString(referencia));
+                revista.setTitulo(cursor.getString(titulo));
+                revista.setUnitermo(cursor.getString(unitermo));
+                revista.setVolume(cursor.getString(volume));
+
+                revista.setAnoFim(cursor.getString(anoFim));
+                revista.setAnoInicio(cursor.getString(anoInicio));
+                revista.setColecao(cursor.getString(colecao));
+                revista.setCorrente(cursor.getString(corrente));
+                revista.setIssn(cursor.getString(issn));
+                revista.setMesFim(cursor.getString(mesFim));
+                revista.setMesInicio(cursor.getString(meInicio));
+                revista.setNumero(cursor.getString(numero));
+                revista.setPeriodicidade(cursor.getString(periodicidade));
+
+                listaRevistas.add(revista);
+            } while (cursor.moveToNext());
+        }
+
+        Log.d("getAllRevistas()", listaRevistas.toString());
+        return listaRevistas;
+    }
+
 }

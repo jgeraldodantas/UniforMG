@@ -5,8 +5,8 @@ package objeto;
  */
 public class Livro extends Material{
 
-    private String autor;
     private int codigoLivro;
+    private String autor;
     private String cutter;
     private String isbn;
     private String numeroTombo;

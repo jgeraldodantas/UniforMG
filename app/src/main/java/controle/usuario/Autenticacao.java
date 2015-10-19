@@ -108,7 +108,7 @@ public class Autenticacao extends AppCompatActivity {
             }
         }
         catch(Exception erro){
-            Toast.makeText(Autenticacao.this, "Falha no servidor.", Toast.LENGTH_LONG).show();
+            Toast.makeText(Autenticacao.this, "Falha de conexão com o servidor.", Toast.LENGTH_LONG).show();
         }
         return usuario;
     }
@@ -133,9 +133,7 @@ public class Autenticacao extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }

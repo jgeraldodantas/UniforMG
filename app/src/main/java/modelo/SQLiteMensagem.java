@@ -17,8 +17,8 @@ public class SQLiteMensagem {
     private static final String TABLE_MENSAGEM = "mensagem";
     private static final String KEY_ID = "id";
     private static final String KEY_MENSAGEM = "mensagem";
-    private static final String KEY_DATA_INICIO = "dataInicio";
-    private static final String KEY_DATA_FIM = "dataFim";
+    private static final String KEY_DATA_INICIO = "datainicio";
+    private static final String KEY_DATA_FIM = "datafim";
     private static final String KEY_VISIBILIDADE = "visibilidade";
     private static final String KEY_TIPO = "tipo";
     private static final String KEY_HORARIO = "horario";

@@ -11,15 +11,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uniformg.uniformg.R;
 
+import controle.material.ListaIndexacao;
 import controle.material.PesquisaIndexSIAB;
 import controle.mensagem.ListaMensagem;
 import modelo.SQLiteLivro;
 import modelo.SQLiteMensagem;
+import modelo.SQLiteRevista;
 import modelo.SQLiteUsuario;
 import modelo.WebService;
 import objeto.Mensagem;
@@ -35,7 +39,7 @@ import modelo.MySQLiteHelper;
 public class Principal extends AppCompatActivity {
 
     TextView tvUsuario;
-    ImageButton ibtConfiguracao,ibtAddUser,ibtPesqAcervoGnuteca,ibtPesqIndexSIAB,ibtMensagens;
+    Button ibtConfiguracao,ibtAddUser,ibtPesqAcervoGnuteca,ibtPesqIndexSIAB,ibtMensagens;
 
     Context context = this;
     WebService web;
@@ -43,9 +47,7 @@ public class Principal extends AppCompatActivity {
     SQLiteUsuario bancoUSER = new SQLiteUsuario(context);
     SQLiteMensagem bancoMSG = new SQLiteMensagem(context);
     SQLiteLivro bancoLivro = new SQLiteLivro(context);
-
-
-
+    SQLiteRevista bancoRevista = new SQLiteRevista(context);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +55,22 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         tvUsuario = (TextView) findViewById(R.id.tvUsuario);
+
         if(verificaUsuario()){
 
             //    ibtAddUser = (ImageButton) findViewById(R.id.ibtAddUsuario);
-            ibtConfiguracao = (ImageButton) findViewById(R.id.ibtConfiguracao);
-            ibtPesqAcervoGnuteca = (ImageButton) findViewById(R.id.ibtPesquisaAcervoGnuteca);
-            ibtPesqIndexSIAB = (ImageButton) findViewById(R.id.ibtPesquisaIndexSIAB);
-            ibtMensagens = (ImageButton) findViewById(R.id.ibtMensagens);
+            ibtConfiguracao = (Button) findViewById(R.id.ibtConfiguracao);
+        //    ibtPesqAcervoGnuteca = (Button) findViewById(R.id.ibtPesquisaAcervoGnuteca);
+            ibtPesqIndexSIAB = (Button) findViewById(R.id.ibtPesquisaIndexSIAB);
+            ibtMensagens = (Button) findViewById(R.id.ibtMensagens);
 
             ListaMensagem msg = new ListaMensagem();
-        //    PesquisaIndexSIAB index = new PesquisaIndexSIAB();
+            PesquisaIndexSIAB indexLivro = new PesquisaIndexSIAB();
+            PesquisaIndexSIAB indexRevista = new PesquisaIndexSIAB();
 
             if (bancoMSG.getAllMensagens().isEmpty()){ msg.buscaMensagensWebService(context); }
-        //    if (bancoLivro.getAllLivro().isEmpty()){ index.buscaLivrosWebService(context); }
+            if (bancoLivro.getAllLivro().isEmpty()){ indexLivro.buscaLivrosWebService(context); }
+            if (bancoRevista.getAllRevista().isEmpty()){indexRevista.buscaRevistasWebService(context); }
 
             ArrayList<Mensagem> listaMSG = bancoMSG.getAllMensagens();
             if(!listaMSG.isEmpty()){
@@ -92,7 +97,7 @@ public class Principal extends AppCompatActivity {
                 }
 
             });
-
+    /*
             ibtPesqAcervoGnuteca.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,7 +105,7 @@ public class Principal extends AppCompatActivity {
                 }
 
             });
-
+    */
             ibtPesqIndexSIAB.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -200,12 +205,6 @@ public class Principal extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

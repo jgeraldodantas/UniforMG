@@ -50,15 +50,5 @@
         android:layout_gravity="right" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvUnitermo"/>
-
-    <View
-        android:layout_height="1.2dip"
-        android:layout_width="fill_parent"
-        android:background="#000000" />
-
 
 </LinearLayout>

@@ -58,25 +58,30 @@
         android:layout_height="wrap_content"
         >
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="85dp"
-            android:src="@drawable/mensagem"
-            android:background="@null"
-            android:id="@+id/ibtMensagens"
-            android:layout_weight="0.22"
-            android:layout_gravity="center_vertical"
-            android:layout_column="40" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="85dp"
-            android:src="@drawable/configuracoes"
+            android:textStyle="bold"
+            android:text="Configurações"
+            android:drawableTop="@drawable/configuracoes"
             android:background="@null"
             android:id="@+id/ibtConfiguracao"
             android:layout_weight="0.22"
             android:layout_gravity="center_vertical"
             android:layout_column="40" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
+            android:textStyle="bold"
+            android:text="Indexação"
+            android:drawableTop="@drawable/index"
+            android:background="@null"
+            android:id="@+id/ibtPesquisaIndexSIAB"
+            android:layout_weight="0.22"
+            android:layout_gravity="center_vertical"
+            android:layout_column="40" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -84,25 +89,27 @@
         android:layout_height="wrap_content"
         >
 
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="85dp"
-            android:src="@drawable/pesquisa"
+            android:text="Mensagem"
+            android:textStyle="bold"
+            android:drawableTop="@drawable/mensagem"
+            android:background="@null"
+            android:id="@+id/ibtMensagens"
+            android:layout_weight="0.22"
+            android:layout_gravity="center_vertical"
+            android:layout_column="40" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="85dp"
             android:background="@null"
             android:id="@+id/ibtPesquisaAcervoGnuteca"
             android:layout_weight="0.22"
             android:layout_gravity="center_vertical"
             android:layout_column="40" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="85dp"
-            android:src="@drawable/index"
-            android:background="@null"
-            android:id="@+id/ibtPesquisaIndexSIAB"
-            android:layout_weight="0.22"
-            android:layout_gravity="center_vertical"
-            android:layout_column="40" />
     </LinearLayout>
 
     <!--

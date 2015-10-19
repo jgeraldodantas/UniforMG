@@ -9,8 +9,9 @@
     <string name="title_activity_pesquisa_acervo">Pesquisar acervo</string>
     <string name="title_activity_autenticacao">Autenticação</string>
     <string name="title_activity_pesquisa_index">Pesquisa Indexação</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_lista_mensagem">Mensagens</string>
     <string name="title_activity_lista_indexacao">Lista Indexação</string>
+    <string name="title_activity_lista_material">ListaMaterial</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
